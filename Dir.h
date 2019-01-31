@@ -82,7 +82,7 @@ public:
 
 	void pwd()
 	{
-		cout << "in pwd" << endl; //```````````````````````````````````````````````````````````````````````````````````````````
+//		cout << "in pwd" << endl; //```````````````````````````````````````````````````````````````````````````````````````````
 		string final_str = "";
 		vector<string> parent_dir_names;
 		Dir * current_dir_p = this;
@@ -94,30 +94,20 @@ public:
 		{
 			current_dir_p = current_dir_p->m_parent_dir_p;
 			parent_dir_names.push_back(current_dir_p->m_name);
-			cout << current_dir_p->m_name << endl; //```````````````````````````````````````````````````````````````````````````````````````
+//			cout << current_dir_p->m_name << endl; //```````````````````````````````````````````````````````````````````````````````````````
 		}
 
-		cout << parent_dir_names.size() << endl;//```````````````````````````````````````````````````````````````````
+//		cout << parent_dir_names.size() << endl;//```````````````````````````````````````````````````````````````````
 
 		//make final_str from parent_dir_names
 
 		for (int i = 0 ; i < parent_dir_names.size() ; i++)
 		{
-			cout << i << endl; //```````````````````````````````````````````````````````````````````````````````
+//			cout << i << endl; //```````````````````````````````````````````````````````````````````````````````
 			final_str = parent_dir_names[i] + '/' + final_str;
 		}
-//
-//		cout << "in pdn: " << parent_dir_names[0] << endl;; //````````````````````````````````````````````````````````````````````````````````````
-//		cout << "in pdn: " << parent_dir_names[1] << endl;; //````````````````````````````````````````````````````````````````````````````````````
-//		cout << "in pdn: " << parent_dir_names.pop_back(); //````````````````````````````````````````````````````````````````````````````````````
 
-//		while(parent_dir_names.size() > 0)
-//		{
-//			final_str += parent_dir_names.end();// + '/';
-//			parent_dir_names.pop_back();
-//		}
-//
-		cout << final_str << endl; //````````````````````````````````````````````````````````````````````````````````
+		cout << final_str << endl;
 
 
 
