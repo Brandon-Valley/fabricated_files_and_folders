@@ -32,9 +32,10 @@ int main()
 	cout << "here" << endl;
 	cur_dir->pwd();
 
-//	cout << cur_dir->m_parent_dir_p->m_name << endl;
-//
-//	cur_dir = cur_dir->cd("..");
-//	cur_dir->ls();
+	cout << cur_dir->m_parent_dir_p->m_name << endl;
+
+	cur_dir = cur_dir->cd("..");
+	cur_dir->ls();
+	cur_dir->pwd();
 
 }

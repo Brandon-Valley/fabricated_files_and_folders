@@ -44,6 +44,15 @@ public:
 		m_name = name;
 	}
 
+	//deconstructor
+	~Dir()
+	{
+		for ( int i = 0; i < m_child_dir_p_vec.size(); i++)
+		{
+		    delete m_child_dir_p_vec[i];
+		}
+	}
+
 	//makes new dir inside current dir and adds a pointer to it to m_child_dir_p_vec
 	void mkdir(const string new_dir_name)
 	{
@@ -100,17 +109,10 @@ public:
 //		cout << parent_dir_names.size() << endl;//```````````````````````````````````````````````````````````````````
 
 		//make final_str from parent_dir_names
-
 		for (int i = 0 ; i < parent_dir_names.size() ; i++)
-		{
-//			cout << i << endl; //```````````````````````````````````````````````````````````````````````````````
 			final_str = parent_dir_names[i] + '/' + final_str;
-		}
 
 		cout << final_str << endl;
-
-
-
 	}
 
 
