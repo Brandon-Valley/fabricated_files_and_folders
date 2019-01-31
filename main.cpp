@@ -12,7 +12,8 @@ int main()
 {
 	cout << "hi there soifnhiosh" << endl;
 
-	Dir root = Dir("");
+	//root is the top level directory
+	Dir root = Dir("root");
 	Dir *cur_dir = &root;
 
 	cout << root.m_owning_user << endl;
@@ -21,7 +22,16 @@ int main()
 	cur_dir->mkdir("jeff");
 	cur_dir->mkdir("bob");
 
-	cout << cur_dir->m_child_dir_vec.size() << endl;
+	cout << cur_dir->m_child_dir_p_vec.size() << endl;
+	cur_dir->ls();
+
+	cur_dir = cur_dir->cd("jeff");
+	cur_dir->mkdir("joe");
+	cur_dir->ls();
+
+	cout << cur_dir->m_parent_dir_p->m_name << endl;
+
+	cur_dir = cur_dir->cd("..");
 	cur_dir->ls();
 
 }
