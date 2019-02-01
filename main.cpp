@@ -22,7 +22,7 @@ int main()
 	cur_dir->mkdir("jeff");
 	cur_dir->mkdir("bob");
 
-	cout << cur_dir->m_child_dir_p_vec.size() << endl;
+	cout << cur_dir->m_dir_child_p_vec.size() << endl;
 	cur_dir->ls();
 
 	cur_dir = cur_dir->cd("jeff");
@@ -42,5 +42,8 @@ int main()
 //	cur_dir->rmdir("jeff");
 	cur_dir->ls();
 	cur_dir->ls_l();
+
+	cur_dir->touch("victor.txt");
+	cur_dir->ls();
 
 }

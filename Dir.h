@@ -3,6 +3,7 @@
 
 # include <iostream>
 
+#include "File.h"
 #include "utils.h"
 
 #include<string>
@@ -23,7 +24,8 @@ const string ROOT_M_NAME = "root";
 // do I need to block invalid file/dir names like 999.txt ??????????????????????????????????????????????????????????????
 // what is 1pbg in power poiint showing ls -l // do i need it / can I just make it up ???????????????????????????????
 // does ls -l need to line up the back of the #s for size like in pp??????????????????????????????????
-
+// will access/permission stuff acually need to be useful in the future? like should I make a nice object or just do some crappy string stuff???????????????
+// is the way I did time for ls -l ok??????????????????????????????????????????????????????????????????????????????????????
 
 //remember to test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //remember to tset that you can cd into a dir when there is a file of the same name right next to it
@@ -40,7 +42,8 @@ public:
 	string m_last_date_modified;
 	string m_name;
 	Dir * m_parent_dir_p;
-	vector<Dir*> m_child_dir_p_vec;
+	vector<Dir*> m_dir_child_p_vec;
+	vector<File*> m_file_child_p_vec;
 
 	// default constructor
 	Dir(const string name)
@@ -53,31 +56,31 @@ public:
 	//deconstructor
 	~Dir()
 	{
-		for ( int i = 0; i < m_child_dir_p_vec.size(); i++)
+		for ( int i = 0; i < m_dir_child_p_vec.size(); i++)
 		{
-		    delete m_child_dir_p_vec[i];
+		    delete m_dir_child_p_vec[i];
 		}
 	}
 
 
-	//makes new dir inside current dir and adds a pointer to it to m_child_dir_p_vec
+	//makes new dir inside current dir and adds a pointer to it to m_dir_child_p_vec
 	void mkdir(const string new_dir_name)
 	{
 		Dir *new_dir = new Dir(new_dir_name);
 		new_dir->m_parent_dir_p = this;
-		m_child_dir_p_vec.push_back(new_dir);
+		m_dir_child_p_vec.push_back(new_dir);
 	}
 
 // ???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 //	void rmdir(const string dir_name)
 //	{
-//		for (auto it = m_child_dir_p_vec.begin(); it != m_child_dir_p_vec.end(); ++it )//( auto &i : m_child_dir_p_vec )//( auto i = m_child_dir_p_vec.begin(); i != m_child_dir_p_vec.end(); i++ )//for(vector<*Dir>::iterator it = m_child_dir_p_vec.begin(); it != m_child_dir_p_vec.end(); ++it)  //for (int i = 0 ; i < m_child_dir_p_vec.size() ; i++)
+//		for (auto it = m_dir_child_p_vec.begin(); it != m_dir_child_p_vec.end(); ++it )//( auto &i : m_dir_child_p_vec )//( auto i = m_dir_child_p_vec.begin(); i != m_dir_child_p_vec.end(); i++ )//for(vector<*Dir>::iterator it = m_dir_child_p_vec.begin(); it != m_dir_child_p_vec.end(); ++it)  //for (int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
 //		{
 //			if (*it. == dir_name)
 //			{
 //				cout << "deleteing in rmdir" << endl;//```````````````````````````````````````````````````````````````````
 ////				delete i;
-//				it = m_child_dir_p_vec.erase(it);
+//				it = m_dir_child_p_vec.erase(it);
 //				return;
 //			}
 //		}
@@ -90,18 +93,23 @@ public:
 	//lists all dirs and files in current dir
 	void ls()
 	{
-		for(int i = 0 ; i < m_child_dir_p_vec.size() ; i++)
+		for(int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
 		{
-			cout << m_child_dir_p_vec[i]->m_name << "   ";
+			cout << m_dir_child_p_vec[i]->m_name << "   ";
+		}
+
+		for(int i = 0 ; i < m_file_child_p_vec.size() ; i++)
+		{
+			cout << m_file_child_p_vec[i]->m_name << "   ";
 		}
 		cout << endl;
 	}
 
 	void ls_l()
 	{
-		for(int i = 0 ; i < m_child_dir_p_vec.size() ; i++)
+		for(int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
 		{
-			cout << m_child_dir_p_vec[i]->m_owning_user << "   " << m_child_dir_p_vec[i]->m_size << "   " << m_child_dir_p_vec[i]->m_last_date_modified << "   " << m_child_dir_p_vec[i]->m_name << "/" << endl;
+			cout << m_dir_child_p_vec[i]->m_owning_user << "   " << m_dir_child_p_vec[i]->m_size << "   " << m_dir_child_p_vec[i]->m_last_date_modified << "   " << m_dir_child_p_vec[i]->m_name << "/" << endl;
 		}
 		cout << endl;
 	}
@@ -113,10 +121,10 @@ public:
 		if (dir_name == "..")
 			return m_parent_dir_p;
 
-		for (int i = 0 ; i < m_child_dir_p_vec.size() ; i++)
+		for (int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
 		{
-			if (m_child_dir_p_vec[i]->m_name == dir_name)
-				return m_child_dir_p_vec[i];
+			if (m_dir_child_p_vec[i]->m_name == dir_name)
+				return m_dir_child_p_vec[i];
 		}
 	}
 
@@ -146,6 +154,23 @@ public:
 
 		cout << final_str << endl;
 	}
+
+
+	// if file already exists, update m_last_date_modified, if not, make new file
+	void touch(const string file_name)
+	{
+		for (int i = 0 ; i < m_file_child_p_vec.size() ; i++)
+		{
+			if (m_file_child_p_vec[i]->m_name == file_name)
+			{
+				m_file_child_p_vec[i]->update_last_date_modified();
+				return;
+			}
+		}
+		File *new_file = new File(file_name);
+		m_file_child_p_vec.push_back(new_file);
+	}
+
 
 
 };
