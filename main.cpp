@@ -38,4 +38,9 @@ int main()
 	cur_dir->ls();
 	cur_dir->pwd();
 
+	cout << "here 2" << endl;
+//	cur_dir->rmdir("jeff");
+	cur_dir->ls();
+	cur_dir->ls_l();
+
 }
