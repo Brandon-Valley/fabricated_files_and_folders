@@ -45,5 +45,6 @@ int main()
 
 	cur_dir->touch("victor.txt");
 	cur_dir->ls();
+	cur_dir->ls_l();
 
 }

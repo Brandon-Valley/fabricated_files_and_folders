@@ -31,6 +31,7 @@ const string ROOT_M_NAME = "root";
 //remember to tset that you can cd into a dir when there is a file of the same name right next to it
 //that you cant cd .. in root
 // that you cant do mkdir or make file with name ""
+// that touch updates last date modified when used on existing file
 
 class Dir
 {
@@ -57,9 +58,10 @@ public:
 	~Dir()
 	{
 		for ( int i = 0; i < m_dir_child_p_vec.size(); i++)
-		{
 		    delete m_dir_child_p_vec[i];
-		}
+
+		for ( int i = 0; i < m_file_child_p_vec.size(); i++)
+		    delete m_file_child_p_vec[i];
 	}
 
 
@@ -105,13 +107,20 @@ public:
 		cout << endl;
 	}
 
+
+	//list all files and dir's in directory with all info
 	void ls_l()
 	{
 		for(int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
 		{
 			cout << m_dir_child_p_vec[i]->m_owning_user << "   " << m_dir_child_p_vec[i]->m_size << "   " << m_dir_child_p_vec[i]->m_last_date_modified << "   " << m_dir_child_p_vec[i]->m_name << "/" << endl;
 		}
-		cout << endl;
+
+		for(int i = 0 ; i < m_file_child_p_vec.size() ; i++)
+		{
+			cout << m_file_child_p_vec[i]->m_owning_user << "   " << m_file_child_p_vec[i]->m_size << "   " << m_file_child_p_vec[i]->m_last_date_modified << "   " << m_file_child_p_vec[i]->m_name << endl;
+		}
+
 	}
 
 
