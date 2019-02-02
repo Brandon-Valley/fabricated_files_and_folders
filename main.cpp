@@ -48,4 +48,8 @@ int main()
 	cur_dir->ls();
 	cur_dir->ls_l();
 
+//	cur_dir->rmdir("jeff");
+//
+//	cur_dir->ls();
+
 }

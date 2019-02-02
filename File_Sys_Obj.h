@@ -13,7 +13,7 @@
 using namespace std;
 
 
-
+//can be a file or a dir
 class File_Sys_Obj
 {
 
@@ -45,22 +45,6 @@ private:
 		else
 			return false;
 	}
-
-
-
-
-//	// default constructor
-//	File(const string name)
-//	{
-//		m_name = name;
-//		m_last_date_modified = currentDateTime();
-//	}
-
-
-//	void update_last_date_modified()
-//	{
-//		m_last_date_modified = currentDateTime();
-//	}
 };
 
 
