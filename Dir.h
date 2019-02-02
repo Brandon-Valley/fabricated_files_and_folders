@@ -38,17 +38,17 @@ const string ROOT_M_NAME = "root";
 //that you cant do chmod 999 or 1111
 
 
-class Dir
+class Dir : public File_Sys_Obj
 {
 
 public:
-	string m_owning_user = "owning_user";
-	int m_size = 888;
+//	string m_owning_user = "owning_user";
+//	int m_size = 888;
 
 	string m_perm_str = FULL_PERM_STR;
 
-	string m_last_date_modified;
-	string m_name;
+//	string m_last_date_modified;
+//	string m_name;
 	Dir * m_parent_dir_p;
 	vector<Dir*> m_dir_child_p_vec;
 	vector<File*> m_file_child_p_vec;
