@@ -29,6 +29,10 @@ const string ROOT_M_NAME = "root";
 //full perms by default right ?
 //dont need letter in front of perm str right?
 
+// should you be able to make a dir and a file of the same name?
+//can I make a member func in file and use it in dir?    -- ----- test this -------------????
+
+
 
 //remember to test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //remember to tset that you can cd into a dir when there is a file of the same name right next to it
@@ -45,30 +49,37 @@ public:
 //	string m_owning_user = "owning_user";
 //	int m_size = 888;
 
-	string m_perm_str = FULL_PERM_STR;
+//	string m_perm_str = FULL_PERM_STR;
 
 //	string m_last_date_modified;
 //	string m_name;
 	Dir * m_parent_dir_p;
-	vector<Dir*> m_dir_child_p_vec;
-	vector<File*> m_file_child_p_vec;
+	vector<File_Sys_Obj*> m_child_p_vec;
+
+//	vector<Dir*> m_dir_child_p_vec;
+//	vector<File*> m_file_child_p_vec;
 
 	// default constructor
 	Dir(const string name)
 	{
 		m_name = name;
 		m_last_date_modified = currentDateTime();
+		m_file_sys_obj_type = "dir";
 	}
 
 
 	//deconstructor
 	~Dir()
 	{
-		for ( int i = 0; i < m_dir_child_p_vec.size(); i++)
-		    delete m_dir_child_p_vec[i];
+//		for ( int i = 0; i < m_dir_child_p_vec.size(); i++)
+//		    delete m_dir_child_p_vec[i];
+//
+//		for ( int i = 0; i < m_file_child_p_vec.size(); i++)
+//		    delete m_file_child_p_vec[i];
 
-		for ( int i = 0; i < m_file_child_p_vec.size(); i++)
-		    delete m_file_child_p_vec[i];
+		for ( int i = 0; i < m_child_p_vec.size(); i++)
+		    delete m_child_p_vec[i];
+
 	}
 
 
@@ -77,7 +88,7 @@ public:
 	{
 		Dir *new_dir = new Dir(new_dir_name);
 		new_dir->m_parent_dir_p = this;
-		m_dir_child_p_vec.push_back(new_dir);
+		m_child_p_vec.push_back(new_dir);
 	}
 
 // ???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
@@ -98,34 +109,48 @@ public:
 //
 //	}
 
-
+	//make this make rows !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//lists all dirs and files in current dir
 	void ls()
 	{
-		for(int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
+//		for(int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
+//		{
+//			cout << m_dir_child_p_vec[i]->m_name << "   ";
+//		}
+//
+//		for(int i = 0 ; i < m_file_child_p_vec.size() ; i++)
+//		{
+//			cout << m_file_child_p_vec[i]->m_name << "   ";
+//		}
+
+		for(int i = 0 ; i < m_child_p_vec.size() ; i++)
 		{
-			cout << m_dir_child_p_vec[i]->m_name << "   ";
+			cout << m_child_p_vec[i]->m_name << "   ";
 		}
 
-		for(int i = 0 ; i < m_file_child_p_vec.size() ; i++)
-		{
-			cout << m_file_child_p_vec[i]->m_name << "   ";
-		}
 		cout << endl;
 	}
-
 
 	//list all files and dir's in directory with all info
 	void ls_l()
 	{
-		for(int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
-		{
-			cout << m_dir_child_p_vec[i]->m_owning_user << "   " << m_dir_child_p_vec[i]->m_size << "   " << m_dir_child_p_vec[i]->m_last_date_modified << "   " << m_dir_child_p_vec[i]->m_name << "/" << endl;
-		}
+//		for(int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
+//		{
+//			cout << m_dir_child_p_vec[i]->m_owning_user << "   " << m_dir_child_p_vec[i]->m_size << "   " << m_dir_child_p_vec[i]->m_last_date_modified << "   " << m_dir_child_p_vec[i]->m_name << "/" << endl;
+//		}
+//
+//		for(int i = 0 ; i < m_file_child_p_vec.size() ; i++)
+//		{
+//			cout << m_file_child_p_vec[i]->m_owning_user << "   " << m_file_child_p_vec[i]->m_size << "   " << m_file_child_p_vec[i]->m_last_date_modified << "   " << m_file_child_p_vec[i]->m_name << endl;
+//		}
 
-		for(int i = 0 ; i < m_file_child_p_vec.size() ; i++)
+		for(int i = 0 ; i < m_child_p_vec.size() ; i++)
 		{
-			cout << m_file_child_p_vec[i]->m_owning_user << "   " << m_file_child_p_vec[i]->m_size << "   " << m_file_child_p_vec[i]->m_last_date_modified << "   " << m_file_child_p_vec[i]->m_name << endl;
+			cout << m_child_p_vec[i]->m_owning_user << "   " << m_child_p_vec[i]->m_size << "   " << m_child_p_vec[i]->m_last_date_modified << "   " << m_child_p_vec[i]->m_name;
+
+			if (m_child_p_vec[i]->is_dir() == true)
+				cout << "/";
+			cout << endl;
 		}
 
 	}
@@ -137,17 +162,16 @@ public:
 		if (dir_name == "..")
 			return m_parent_dir_p;
 
-		for (int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
+		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
 		{
-			if (m_dir_child_p_vec[i]->m_name == dir_name)
-				return m_dir_child_p_vec[i];
+			if (m_child_p_vec[i]->m_name == dir_name and m_child_p_vec[i]->is_dir())
+				return static_cast<Dir*>(m_child_p_vec[i]);
 		}
 	}
 
 
 	void pwd()
 	{
-//		cout << "in pwd" << endl; //```````````````````````````````````````````````````````````````````````````````````````````
 		string final_str = "";
 		vector<string> parent_dir_names;
 		Dir * current_dir_p = this;
@@ -159,10 +183,7 @@ public:
 		{
 			current_dir_p = current_dir_p->m_parent_dir_p;
 			parent_dir_names.push_back(current_dir_p->m_name);
-//			cout << current_dir_p->m_name << endl; //```````````````````````````````````````````````````````````````````````````````````````
 		}
-
-//		cout << parent_dir_names.size() << endl;//```````````````````````````````````````````````````````````````````
 
 		//make final_str from parent_dir_names
 		for (int i = 0 ; i < parent_dir_names.size() ; i++)
@@ -173,18 +194,18 @@ public:
 
 
 	// if file already exists, update m_last_date_modified, if not, make new file
-	void touch(const string file_name)
+	void touch(const string name)
 	{
-		for (int i = 0 ; i < m_file_child_p_vec.size() ; i++)
+		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
 		{
-			if (m_file_child_p_vec[i]->m_name == file_name)
+			if (m_child_p_vec[i]->m_name == name)
 			{
-				m_file_child_p_vec[i]->update_last_date_modified();
+				m_child_p_vec[i]->update_last_date_modified();
 				return;
 			}
 		}
-		File *new_file = new File(file_name);
-		m_file_child_p_vec.push_back(new_file);
+		File *new_file = new File(name);
+		m_child_p_vec.push_back(new_file);
 	}
 
 

@@ -31,13 +31,11 @@ public:
 	{
 		m_name = name;
 		m_last_date_modified = currentDateTime();
+		m_file_sys_obj_type = "file";
 	}
 
 
-	void update_last_date_modified()
-	{
-		m_last_date_modified = currentDateTime();
-	}
+
 
 
 };
