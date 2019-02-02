@@ -53,4 +53,11 @@ int main()
 	cur_dir->ls();
 	cout << cur_dir->m_child_p_vec.size() << endl;
 
+	cur_dir->mkdir("bill");
+	cur_dir->mkdir("dave");
+	cur_dir->mkdir("chuck");
+
+	cur_dir->ls_l();
+	cur_dir->ls();
+
 }

@@ -113,12 +113,25 @@ public:
 	//lists all dirs and files in current dir
 	void ls()
 	{
+		vector<string> output_vec;
+		string line;
+
+		//fill output_vec
 		for(int i = 0 ; i < m_child_p_vec.size() ; i++)
 		{
-			cout << m_child_p_vec[i]->m_name << "   ";
+			if(i % 5 != 0 or i == 0)
+				line += m_child_p_vec[i]->m_name + "\t";
+			else
+			{
+				output_vec.push_back(line);
+				line = m_child_p_vec[i]->m_name + "\t";
+			}
 		}
+		output_vec.push_back(line);
 
-		cout << endl;
+		//print out lines in output_vec
+		for (int i = 0 ; i < output_vec.size() ; i++)
+			cout << output_vec[i] << endl;
 	}
 
 	//list all files and dir's in directory with all info
