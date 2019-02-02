@@ -26,12 +26,17 @@ const string ROOT_M_NAME = "root";
 // does ls -l need to line up the back of the #s for size like in pp??????????????????????????????????
 // will access/permission stuff acually need to be useful in the future? like should I make a nice object or just do some crappy string stuff???????????????
 // is the way I did time for ls -l ok??????????????????????????????????????????????????????????????????????????????????????
+//full perms by default right ?
+//dont need letter in front of perm str right?
+
 
 //remember to test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //remember to tset that you can cd into a dir when there is a file of the same name right next to it
 //that you cant cd .. in root
 // that you cant do mkdir or make file with name ""
 // that touch updates last date modified when used on existing file
+//that you cant do chmod 999 or 1111
+
 
 class Dir
 {
@@ -39,6 +44,8 @@ class Dir
 public:
 	string m_owning_user = "owning_user";
 	int m_size = 888;
+
+	string m_perm_str = FULL_PERM_STR;
 
 	string m_last_date_modified;
 	string m_name;
@@ -178,6 +185,13 @@ public:
 		}
 		File *new_file = new File(file_name);
 		m_file_child_p_vec.push_back(new_file);
+	}
+
+
+	//preforms chmod on the file or dir given which exists inside cur_dir, not on cur_dir itself
+	void chmod(const string name, const int perm_num)
+	{
+
 	}
 
 
