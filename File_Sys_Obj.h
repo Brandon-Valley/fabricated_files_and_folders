@@ -21,6 +21,7 @@ public:
 	string m_owning_user = "owning_user";
 	int m_size = 888;
 	string m_perm_str = FULL_PERM_STR;
+	string m_1_pbg_thing = "1	pbg";
 
 	string m_last_date_modified;
 	string m_name;

@@ -55,7 +55,7 @@ int main()
 	}
 	catch (string error)
 	{
-	        cout << error << endl;;
+	        cout << error << endl;
 	}
 
 	cur_dir->rmdir("jeff");
@@ -65,6 +65,9 @@ int main()
 
 	cur_dir->rm("victor.txt");
 	cur_dir->ls();
+
+	cur_dir->chmod("bob", "123");
+	cur_dir->ls_l();
 //
 //	cur_dir->mkdir("bill");
 //	cur_dir->mkdir("dave");

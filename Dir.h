@@ -148,7 +148,7 @@ public:
 	{
 		for(int i = 0 ; i < m_child_p_vec.size() ; i++)
 		{
-			cout << m_child_p_vec[i]->m_owning_user << "\t" << m_child_p_vec[i]->m_size << "\t" << m_child_p_vec[i]->m_last_date_modified << "\t" << m_child_p_vec[i]->m_name;
+			cout << m_child_p_vec[i]->m_perm_str << "\t" << m_child_p_vec[i]->m_1_pbg_thing << "\t" << m_child_p_vec[i]->m_owning_user << "\t" << m_child_p_vec[i]->m_size << "\t" << m_child_p_vec[i]->m_last_date_modified << "\t" << m_child_p_vec[i]->m_name;
 
 			if (m_child_p_vec[i]->is_dir() == true)
 				cout << "/";
@@ -214,8 +214,21 @@ public:
 
 
 	//preforms chmod on the file or dir given which exists inside cur_dir, not on cur_dir itself
-	void chmod(const string name, const int perm_num)
+	void chmod(const string name, const string perm_num_str)
 	{
+		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
+		{
+			if (m_child_p_vec[i]->m_name == name)
+			{
+				try
+				{
+					string new_perm_str = perm_num_2_str(perm_num_str);
+				}
+				catch(string error) { cout << error << endl; }
+				return;
+			}
+		}
+		throw "chmod: cannot access " + name +": No such file or directory";
 
 	}
 
