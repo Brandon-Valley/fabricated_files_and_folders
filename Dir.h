@@ -75,15 +75,53 @@ public:
 // ???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 	void rmdir(const string dir_name)
 	{
+
 		cout << "begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
 		Dir * dir_2_delete = static_cast<Dir*>(*m_child_p_vec.begin());
+		cout << "dir_2_delete->m_child_p_vec.size():  " << dir_2_delete->m_child_p_vec.size() << endl;//`````````````````````````````````````
+
+		for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
+		{
+			Dir * dir_2_delete_i = static_cast<Dir*>(dir_2_delete->m_child_p_vec[i]);
+			dir_2_delete->rmdir(dir_2_delete_i->m_name);//2_delete_i->rmdir(dir_2_delete_i->m_na);
+		}
+
+//		delete dir_2_delete->m_child_p_vec[0];
+		delete dir_2_delete;
+
 //		m_child_p_vec.erase(m_child_p_vec.begin());
-		dir_2_delete->~Dir();
+//		dir_2_delete->~Dir();
 		cout << "after ~dir() begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
+
+//		delete m_child_p_vec[0];
+
+//		for (int i = 0; i < m_child_p_vec[0].size(); i++)
+//		{
+//			if (m_child_p_vec[i]->is_dir())
+//			{
+//				Dir * curr_dir = static_cast<Dir*>(m_child_p_vec[i]);
+//				curr_dir->~Dir();
+//			}
+//		    delete m_child_p_vec[i];
+//		}
+
+
 
 		m_child_p_vec.erase(m_child_p_vec.begin());
 
 		cout << "after erase begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
+
+//
+//
+//		cout << "begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
+//		Dir * dir_2_delete = static_cast<Dir*>(*m_child_p_vec.begin());
+////		m_child_p_vec.erase(m_child_p_vec.begin());
+//		dir_2_delete->~Dir();
+//		cout << "after ~dir() begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
+//
+//		m_child_p_vec.erase(m_child_p_vec.begin());
+//
+//		cout << "after erase begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
 
 
 

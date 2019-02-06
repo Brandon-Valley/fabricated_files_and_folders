@@ -36,6 +36,7 @@ public:
 		m_last_date_modified = currentDateTime();
 	}
 
+
 private:
 
 	bool is_file_sys_obj_type(const string type_str)
