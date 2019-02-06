@@ -72,80 +72,31 @@ public:
 		m_child_p_vec.push_back(new_dir);
 	}
 
-// ???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+
+	//make sure to add delete child files !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	void rmdir(const string dir_name)
 	{
-
-		cout << "begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
-		Dir * dir_2_delete = static_cast<Dir*>(*m_child_p_vec.begin());
-		cout << "dir_2_delete->m_child_p_vec.size():  " << dir_2_delete->m_child_p_vec.size() << endl;//`````````````````````````````````````
-
-		for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
+		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
 		{
-			Dir * dir_2_delete_i = static_cast<Dir*>(dir_2_delete->m_child_p_vec[i]);
-			dir_2_delete->rmdir(dir_2_delete_i->m_name);//2_delete_i->rmdir(dir_2_delete_i->m_na);
+			if (m_child_p_vec[i]->m_name == dir_name and m_child_p_vec[i]->is_dir())
+			{
+				Dir * dir_2_delete = static_cast<Dir*>(m_child_p_vec[i]);
+
+				for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
+				{
+					dir_2_delete->rmdir(dir_2_delete->m_child_p_vec[i]->m_name);
+				}
+
+				delete dir_2_delete;
+				m_child_p_vec.erase(m_child_p_vec.begin() + i);
+				return;
+			}
 		}
 
-//		delete dir_2_delete->m_child_p_vec[0];
-		delete dir_2_delete;
-
-//		m_child_p_vec.erase(m_child_p_vec.begin());
-//		dir_2_delete->~Dir();
-		cout << "after ~dir() begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
-
-//		delete m_child_p_vec[0];
-
-//		for (int i = 0; i < m_child_p_vec[0].size(); i++)
-//		{
-//			if (m_child_p_vec[i]->is_dir())
-//			{
-//				Dir * curr_dir = static_cast<Dir*>(m_child_p_vec[i]);
-//				curr_dir->~Dir();
-//			}
-//		    delete m_child_p_vec[i];
-//		}
-
-
-
-		m_child_p_vec.erase(m_child_p_vec.begin());
-
-		cout << "after erase begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
-
-//
-//
-//		cout << "begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
-//		Dir * dir_2_delete = static_cast<Dir*>(*m_child_p_vec.begin());
-////		m_child_p_vec.erase(m_child_p_vec.begin());
-//		dir_2_delete->~Dir();
-//		cout << "after ~dir() begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
-//
-//		m_child_p_vec.erase(m_child_p_vec.begin());
-//
-//		cout << "after erase begin:  " << (*m_child_p_vec.begin())->m_name << endl;//``````````````````````````````````````````````````````````````
-
-
-
-////		iterator<vector> it = m_child_p_vec.begin();
-//		cout << "it" << it->m_name << endl;
-//		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
-//		{
-//
-//		}
-
-//		for (auto it = m_child_p_vec.begin(); it != m_child_p_vec.end(); ++it )//( auto &i : m_dir_child_p_vec )//( auto i = m_dir_child_p_vec.begin(); i != m_dir_child_p_vec.end(); i++ )//for(vector<*Dir>::iterator it = m_dir_child_p_vec.begin(); it != m_dir_child_p_vec.end(); ++it)  //for (int i = 0 ; i < m_dir_child_p_vec.size() ; i++)
-//		{
-//			if (*it->m_name == dir_name)
-//			{
-//				cout << "deleteing in rmdir" << endl;//```````````````````````````````````````````````````````````````````
-////				delete i;
-//				it = m_child_p_vec.erase(it);
-//				return;
-//			}
-//		}
-//
-//		throw "rmdir: failed to remove " + dir_name + ":  No such directory";
+		throw "rmdir: failed to remove " + dir_name + ":  No such directory";
 
 	}
+
 
 	//make this make rows !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//lists all dirs and files in current dir
@@ -171,6 +122,7 @@ public:
 		for (int i = 0 ; i < output_vec.size() ; i++)
 			cout << output_vec[i] << endl;
 	}
+
 
 	//list all files and dir's in directory with all info
 	void ls_l()
@@ -198,6 +150,8 @@ public:
 			if (m_child_p_vec[i]->m_name == dir_name and m_child_p_vec[i]->is_dir())
 				return static_cast<Dir*>(m_child_p_vec[i]);
 		}
+
+		//need throw??????????????????????????????????????????????????????????????????????????????????????????????????????????
 	}
 
 
