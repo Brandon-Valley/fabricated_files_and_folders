@@ -84,7 +84,10 @@ public:
 
 				for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
 				{
-					dir_2_delete->rmdir(dir_2_delete->m_child_p_vec[i]->m_name);
+					if (m_child_p_vec[i]->is_dir())
+						dir_2_delete->rmdir(dir_2_delete->m_child_p_vec[i]->m_name);
+					else
+						dir_2_delete->rm(dir_2_delete->m_child_p_vec[i]->m_name);
 				}
 
 				delete dir_2_delete;
@@ -95,6 +98,22 @@ public:
 
 		throw "rmdir: failed to remove " + dir_name + ":  No such directory";
 
+	}
+
+
+
+	void rm(const string file_name)
+	{
+		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
+		{
+			if (m_child_p_vec[i]->m_name == file_name and m_child_p_vec[i]->is_file())
+			{
+				delete m_child_p_vec[i];
+				m_child_p_vec.erase(m_child_p_vec.begin() + i);
+				return;
+			}
+		}
+		throw "rm: failed to remove " + file_name + ":  No such directory";
 	}
 
 
