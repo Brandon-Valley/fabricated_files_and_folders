@@ -220,11 +220,15 @@ public:
 		{
 			if (m_child_p_vec[i]->m_name == name)
 			{
+				//check if this needs to be here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				try
 				{
 					string new_perm_str = perm_num_2_str(perm_num_str);
 				}
 				catch(string error) { cout << error << endl; }
+
+				m_child_p_vec[i]->m_perm_str = perm_num_2_str(perm_num_str);
+				cout << "m_perm_str  " << m_child_p_vec[i]->m_perm_str << endl;//`````````````````````````````````````````````````````````````````
 				return;
 			}
 		}

@@ -66,7 +66,7 @@ int main()
 	cur_dir->rm("victor.txt");
 	cur_dir->ls();
 
-	cur_dir->chmod("bob", "123");
+	cur_dir->chmod("bob", "703");
 	cur_dir->ls_l();
 //
 //	cur_dir->mkdir("bill");

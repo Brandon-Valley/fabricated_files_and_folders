@@ -30,6 +30,12 @@ string single_digit_int_2_binary_str(const int a)
 }
 
 
+int char_2_int(const char in_char)
+{
+	return int(in_char - 48);
+}
+
+
 bool valid_perm_num_str(const string perm_num_str)
 {
 	if (perm_num_str.size() != 3)
@@ -40,21 +46,39 @@ bool valid_perm_num_str(const string perm_num_str)
 		if (isdigit(perm_num_str[i]) == false)
 			return false;
 
-		int char_num = int(perm_num_str[i]);
+		int char_num = char_2_int(perm_num_str[i]);
 
 		if (char_num > 7)
 			return false;
+
 	}
 	return true;
 }
 
-
+//takes in perm_num, retruns perm_num_str
 string perm_num_2_str(const string perm_num_str)
 {
 	if (valid_perm_num_str(perm_num_str) == false)
 		throw "chmod: invalid mode: ‘" + perm_num_str + "’";
 
-	// more here
+	//fill binary_perm_str
+	string binary_perm_str;
+	for (int i = 0 ; i < perm_num_str.size() ; i++)
+		binary_perm_str += single_digit_int_2_binary_str(char_2_int(perm_num_str[i]));
+
+//	cout << binary_perm_str << endl;//``````````````````````````````````````````````````````````````````````````````````
+
+	//build final_perm_str
+	string final_perm_str = FULL_PERM_STR;
+	for (int i = 0 ; i < binary_perm_str.size() ; i++)
+	{
+		if (binary_perm_str[i] == '0')
+			final_perm_str[i] = '-';
+	}
+
+	cout<< "in per_num_2_str:  " << final_perm_str << endl;//````````````````````````````````````````````````````````````
+	return final_perm_str;
+
 }
 
 
