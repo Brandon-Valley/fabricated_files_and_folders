@@ -1,15 +1,29 @@
 mkdir a
-ls
-cd a
-ls
-pwd
-mkdir aa
-touch aa.t
-cd ..
 mkdir b
-cd b
+touch c.t
+touch d.t
+cd a
+mkdir aa
 mkdir bb
-touch bb.t
+touch cc.t
+touch cc.tt
+rm cc.tt
+rmdir bb
+cd aa
+mkdir aaa
+mkdir bbb
+touch ccc.t
+touch ddd.t
+rm ddd.t
+rmdir bbb
 cd ..
-rmdir a
+rmdir aa
+mkdir ff
+cd ff
+mkdir dddd
+dddd
+cd ..
+cd ..
+rm d.t
+rmdir b
 quit

@@ -73,7 +73,7 @@ public:
 
 				for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
 				{
-					cout << "  in ~Dir(), m_name:  " << m_child_p_vec[i]->m_name << "  is_dir():  " << m_child_p_vec[i]->is_dir() << endl;//```````````````````````
+//					cout << "  in ~Dir(), m_name:  " << m_child_p_vec[i]->m_name << "  is_dir():  " << m_child_p_vec[i]->is_dir() << endl;//```````````````````````
 					if (m_child_p_vec[i]->is_dir())
 						dir_2_delete->rmdir(dir_2_delete->m_child_p_vec[i]->m_name);
 					else
@@ -85,10 +85,7 @@ public:
 				return;
 			}
 			else // if its a file
-			{
 				rm(m_child_p_vec[i]->m_name);
-
-			}
 		}
 //
 //
