@@ -50,7 +50,7 @@ private:
 
 public:
 	Dir * m_parent_dir_p;
-	vector<File_Sys_Obj*> m_child_p_vec;
+	vector<File_Sys_Obj*> m_child_p_vec = {};
 
 
 	// default constructor
@@ -65,15 +65,46 @@ public:
 	//deconstructor
 	~Dir()
 	{
-		for (int i = 0; i < m_child_p_vec.size(); i++)
+		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
 		{
 			if (m_child_p_vec[i]->is_dir())
 			{
-				Dir * curr_dir = static_cast<Dir*>(m_child_p_vec[i]);
-				curr_dir->~Dir();
+				Dir * dir_2_delete = static_cast<Dir*>(m_child_p_vec[i]);
+
+				for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
+				{
+					if (m_child_p_vec[i]->is_dir())
+						dir_2_delete->rmdir(dir_2_delete->m_child_p_vec[i]->m_name);
+					else
+						dir_2_delete->rm(dir_2_delete->m_child_p_vec[i]->m_name);
+				}
+
+				delete dir_2_delete;
+				m_child_p_vec.erase(m_child_p_vec.begin() + i);
+				return;
 			}
-		    delete m_child_p_vec[i];
 		}
+//
+//
+//
+//		cout << "in ~Dir()" << endl;//``````````````````````````````````````````````````````````````````````
+//		cout << "  size of " << m_name << " is :  " << m_child_p_vec.size() << endl; //````````````````````````````````````````````````````
+//		for (int i = 0; i < m_child_p_vec.size(); i++)
+//		{
+//			cout << "in loop of " << m_name << " i: " << i << endl;//```````````````````````````````````````````````````````````````
+//			if (m_child_p_vec[i]->is_dir())
+//			{
+//				cout << "found child, child's name is :  " << m_child_p_vec[i]->m_name << "  looping again..." << endl;//````````````````````````````````````````````````
+//				Dir * curr_dir = static_cast<Dir*>(m_child_p_vec[i]);
+//				curr_dir->~Dir();
+//			}
+//
+//			cout << "    about to delete: " << m_child_p_vec[i]->m_name << endl;//````````````````````````````````````````````````````````````````````````````
+//		    delete m_child_p_vec[i];
+//		    m_child_p_vec[i] = NULL;
+//			cout << "      just deleted" << endl;//````````````````````````````````````````````````````````````````````````````
+//
+//		}
 	}
 
 
@@ -84,7 +115,7 @@ public:
 			throw "mkdir: cannot create directory ‘" + new_dir_name + "’: File exists";
 		else
 		{
-			Dir *new_dir = new Dir(new_dir_name);
+			Dir * new_dir = new Dir(new_dir_name);
 			new_dir->m_parent_dir_p = this;
 			m_child_p_vec.push_back(new_dir);
 		}

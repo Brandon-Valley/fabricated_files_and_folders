@@ -51,7 +51,7 @@ int main()
 		{
 			try
 			{
-				cout << cur_dir->pwd() << "  >> " <<  endl;
+				cout << cur_dir->pwd() << "  >> ";
 				string command;
 				getline(cin, command);
 				cur_dir = parse(command, cur_dir);
@@ -62,4 +62,6 @@ int main()
 		}
 		catch (...)   { cout << "ERROR" << endl; }
 	}
+//	delete cur_dir;
+	return 0;
 }
