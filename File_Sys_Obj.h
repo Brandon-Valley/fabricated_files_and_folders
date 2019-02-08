@@ -4,7 +4,6 @@
 
 # include <iostream>
 
-//#include "Dir.h"
 #include "utils.h"
 
 #include<string>
@@ -40,6 +39,7 @@ public:
 
 private:
 
+	//returns t/f if this file_sys_obj is the provided type
 	bool is_file_sys_obj_type(const string type_str)
 	{
 		if (m_file_sys_obj_type == type_str)

@@ -68,7 +68,6 @@ string perm_num_2_str(const string perm_num_str)
 	for (int i = 0 ; i < perm_num_str.size() ; i++)
 		binary_perm_str += single_digit_int_2_binary_str(char_2_int(perm_num_str[i]));
 
-//	cout << binary_perm_str << endl;//``````````````````````````````````````````````````````````````````````````````````
 
 	//build final_perm_str
 	string final_perm_str = FULL_PERM_STR;
@@ -78,7 +77,6 @@ string perm_num_2_str(const string perm_num_str)
 			final_perm_str[i] = '-';
 	}
 
-//	cout<< "in per_num_2_str:  " << final_perm_str << endl;//````````````````````````````````````````````````````````````
 	return final_perm_str;
 }
 
@@ -118,18 +116,7 @@ vector<string> split(string str, string token = " ")
     return result;
 }
 
-//std::vector<std::string> split(std::string const &in) {
-//    char sep = ' ';
-//    std::string::size_type b = 0;
-//    std::vector<std::string> result;
-//
-//    while ((b = in.find_first_not_of(sep, b)) != std::string::npos) {
-//        auto e = in.find_first_of(sep, b);
-//        result.push_back(in.substr(b, e-b));
-//        b = e;
-//    }
-//    return result;
-//}
+
 
 //Dir * parse()
 //{

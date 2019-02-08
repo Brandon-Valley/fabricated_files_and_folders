@@ -73,7 +73,6 @@ public:
 
 				for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
 				{
-//					cout << "  in ~Dir(), m_name:  " << m_child_p_vec[i]->m_name << "  is_dir():  " << m_child_p_vec[i]->is_dir() << endl;//```````````````````````
 					if (m_child_p_vec[i]->is_dir())
 						dir_2_delete->rmdir(dir_2_delete->m_child_p_vec[i]->m_name);
 					else
@@ -87,27 +86,6 @@ public:
 			else // if its a file
 				rm(m_child_p_vec[i]->m_name);
 		}
-//
-//
-//
-//		cout << "in ~Dir()" << endl;//``````````````````````````````````````````````````````````````````````
-//		cout << "  size of " << m_name << " is :  " << m_child_p_vec.size() << endl; //````````````````````````````````````````````````````
-//		for (int i = 0; i < m_child_p_vec.size(); i++)
-//		{
-//			cout << "in loop of " << m_name << " i: " << i << endl;//```````````````````````````````````````````````````````````````
-//			if (m_child_p_vec[i]->is_dir())
-//			{
-//				cout << "found child, child's name is :  " << m_child_p_vec[i]->m_name << "  looping again..." << endl;//````````````````````````````````````````````````
-//				Dir * curr_dir = static_cast<Dir*>(m_child_p_vec[i]);
-//				curr_dir->~Dir();
-//			}
-//
-//			cout << "    about to delete: " << m_child_p_vec[i]->m_name << endl;//````````````````````````````````````````````````````````````````````````````
-//		    delete m_child_p_vec[i];
-//		    m_child_p_vec[i] = NULL;
-//			cout << "      just deleted" << endl;//````````````````````````````````````````````````````````````````````````````
-//
-//		}
 	}
 
 
@@ -125,7 +103,7 @@ public:
 	}
 
 
-	//make sure to add delete child files !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// removes directory and it's children
 	void rmdir(const string dir_name)
 	{
 		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
@@ -147,13 +125,11 @@ public:
 				return;
 			}
 		}
-
 		throw "rmdir: failed to remove " + dir_name + ":  No such directory";
-
 	}
 
 
-
+	// removes file
 	void rm(const string file_name)
 	{
 		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
@@ -225,6 +201,7 @@ public:
 	}
 
 
+	// returns string showing path from root to this dir
 	string pwd()
 	{
 		string final_str = "";
@@ -271,19 +248,13 @@ public:
 		{
 			if (m_child_p_vec[i]->m_name == name)
 			{
-				//check if this needs to be here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//				try
-//				{
 				string new_perm_str = perm_num_2_str(perm_num_str);
-//				}
-//				catch(string error) { cout << error << endl; }
 
 				m_child_p_vec[i]->m_perm_str = perm_num_2_str(perm_num_str);
 				return;
 			}
 		}
 		throw "chmod: cannot access " + name +": No such file or directory";
-
 	}
 
 
