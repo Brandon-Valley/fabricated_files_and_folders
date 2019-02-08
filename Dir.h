@@ -131,11 +131,10 @@ public:
 				return;
 			}
 		}
-		throw "rm: failed to remove " + file_name + ":  No such directory";
+		throw "rm: failed to remove " + file_name + ":  No such file";
 	}
 
 
-	//make this make rows !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//lists all dirs and files in current dir
 	void ls()
 	{
