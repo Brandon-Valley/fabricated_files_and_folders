@@ -8,6 +8,8 @@
 #include<string>
 #include<vector>
 
+# include "Dir.h"
+
 using namespace std;
 
 const string FULL_PERM_STR = "rwxrwxrwx";
@@ -76,9 +78,8 @@ string perm_num_2_str(const string perm_num_str)
 			final_perm_str[i] = '-';
 	}
 
-	cout<< "in per_num_2_str:  " << final_perm_str << endl;//````````````````````````````````````````````````````````````
+//	cout<< "in per_num_2_str:  " << final_perm_str << endl;//````````````````````````````````````````````````````````````
 	return final_perm_str;
-
 }
 
 
@@ -96,6 +97,46 @@ string currentDateTime()
 
     return buf;
 }
+
+
+
+//splits string into vector of strings using space as delim.
+vector<string> split(string str, string token = " ")
+{
+    vector<string>result;
+    while(str.size()){
+        int index = str.find(token);
+        if(index!=string::npos){
+            result.push_back(str.substr(0,index));
+            str = str.substr(index+token.size());
+            if(str.size()==0)result.push_back(str);
+        }else{
+            result.push_back(str);
+            str = "";
+        }
+    }
+    return result;
+}
+
+//std::vector<std::string> split(std::string const &in) {
+//    char sep = ' ';
+//    std::string::size_type b = 0;
+//    std::vector<std::string> result;
+//
+//    while ((b = in.find_first_not_of(sep, b)) != std::string::npos) {
+//        auto e = in.find_first_of(sep, b);
+//        result.push_back(in.substr(b, e-b));
+//        b = e;
+//    }
+//    return result;
+//}
+
+//Dir * parse()
+//{
+//
+//}
+
+
 
 
 

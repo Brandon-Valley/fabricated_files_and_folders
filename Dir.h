@@ -21,8 +21,8 @@ const string ROOT_M_NAME = "root";
 // is the way I did time for ls -l ok??????????????????????????????????????????????????????????????????????????????????????
 
 //can I make a member func in file and use it in dir without static casting?    -- ----- test this -------------????
-
-
+// why cant I put parse in utils?
+// should pwd -aaaaaaaa work?  - is my error ok?
 
 //remember to test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //remember to tset that you can cd into a dir when there is a file of the same name right next to it
@@ -30,10 +30,23 @@ const string ROOT_M_NAME = "root";
 // that you cant do mkdir or make file with name ""
 // that touch updates last date modified when used on existing file
 //that you cant do chmod 999 or 1111
+// that you have an exit/quit command
 
 
 class Dir : public File_Sys_Obj
 {
+private:
+
+	bool in_children(string name)
+	{
+		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
+		{
+			if (m_child_p_vec[i]->m_name == name)
+				return true;
+		}
+		return false;
+	}
+
 
 public:
 	Dir * m_parent_dir_p;
@@ -67,9 +80,14 @@ public:
 	//makes new dir inside current dir and adds a pointer to it to m_dir_child_p_vec
 	void mkdir(const string new_dir_name)
 	{
-		Dir *new_dir = new Dir(new_dir_name);
-		new_dir->m_parent_dir_p = this;
-		m_child_p_vec.push_back(new_dir);
+		if (in_children(new_dir_name) == true)
+			throw "mkdir: cannot create directory ‘" + new_dir_name + "’: File exists";
+		else
+		{
+			Dir *new_dir = new Dir(new_dir_name);
+			new_dir->m_parent_dir_p = this;
+			m_child_p_vec.push_back(new_dir);
+		}
 	}
 
 
@@ -170,11 +188,11 @@ public:
 				return static_cast<Dir*>(m_child_p_vec[i]);
 		}
 
-		//need throw??????????????????????????????????????????????????????????????????????????????????????????????????????????
+		throw "cd: " + dir_name + ": No such directory";
 	}
 
 
-	void pwd()
+	string pwd()
 	{
 		string final_str = "";
 		vector<string> parent_dir_names;
@@ -193,7 +211,7 @@ public:
 		for (int i = 0 ; i < parent_dir_names.size() ; i++)
 			final_str = parent_dir_names[i] + '/' + final_str;
 
-		cout << final_str << endl;
+		return final_str;
 	}
 
 
@@ -221,20 +239,20 @@ public:
 			if (m_child_p_vec[i]->m_name == name)
 			{
 				//check if this needs to be here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				try
-				{
-					string new_perm_str = perm_num_2_str(perm_num_str);
-				}
-				catch(string error) { cout << error << endl; }
+//				try
+//				{
+				string new_perm_str = perm_num_2_str(perm_num_str);
+//				}
+//				catch(string error) { cout << error << endl; }
 
 				m_child_p_vec[i]->m_perm_str = perm_num_2_str(perm_num_str);
-				cout << "m_perm_str  " << m_child_p_vec[i]->m_perm_str << endl;//`````````````````````````````````````````````````````````````````
 				return;
 			}
 		}
 		throw "chmod: cannot access " + name +": No such file or directory";
 
 	}
+
 
 
 
