@@ -54,6 +54,7 @@ int main()
 				cout << cur_dir->pwd() << "  >> ";
 				string command;
 				getline(cin, command);
+//				cout << " !!!DELETE THIS!!! command recieved:  " << command << endl;//`````````````````````````````````````````````````````````````````````````````
 				cur_dir = parse(command, cur_dir);
 			}
 			catch (int i) {	break; }

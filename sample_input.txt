@@ -1,2 +1,15 @@
 mkdir a
+ls
+cd a
+ls
+pwd
+mkdir aa
+touch aa.t
+cd ..
+mkdir b
+cd b
+mkdir bb
+touch bb.t
+cd ..
+rmdir a
 quit

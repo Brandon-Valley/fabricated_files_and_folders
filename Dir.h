@@ -65,25 +65,31 @@ public:
 	//deconstructor
 	~Dir()
 	{
-//		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
-//		{
-//			if (m_child_p_vec[i]->is_dir())
-//			{
-//				Dir * dir_2_delete = static_cast<Dir*>(m_child_p_vec[i]);
-//
-//				for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
-//				{
-//					if (m_child_p_vec[i]->is_dir())
-//						dir_2_delete->rmdir(dir_2_delete->m_child_p_vec[i]->m_name);
-//					else
-//						dir_2_delete->rm(dir_2_delete->m_child_p_vec[i]->m_name);
-//				}
-//
-//				delete dir_2_delete;
-//				m_child_p_vec.erase(m_child_p_vec.begin() + i);
-//				return;
-//			}
-//		}
+		for (int i = 0 ; i < m_child_p_vec.size() ; i++)
+		{
+			if (m_child_p_vec[i]->is_dir())
+			{
+				Dir * dir_2_delete = static_cast<Dir*>(m_child_p_vec[i]);
+
+				for (int i = 0 ; i < dir_2_delete->m_child_p_vec.size() ; i++)
+				{
+					cout << "  in ~Dir(), m_name:  " << m_child_p_vec[i]->m_name << "  is_dir():  " << m_child_p_vec[i]->is_dir() << endl;//```````````````````````
+					if (m_child_p_vec[i]->is_dir())
+						dir_2_delete->rmdir(dir_2_delete->m_child_p_vec[i]->m_name);
+					else
+						dir_2_delete->rm(dir_2_delete->m_child_p_vec[i]->m_name);
+				}
+
+				delete dir_2_delete;
+				m_child_p_vec.erase(m_child_p_vec.begin() + i);
+				return;
+			}
+			else // if its a file
+			{
+				rm(m_child_p_vec[i]->m_name);
+
+			}
+		}
 //
 //
 //
